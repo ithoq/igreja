@@ -1,0 +1,65 @@
+// estilo usado no formulario do usuarios também
+
+#form_cadastro{
+	margin-top: 20px;
+	.input-group{
+		margin-bottom:20px;
+		width: 97%;
+		color: #059607;
+	}
+	.tab-pane{
+		text-align: left;
+	}
+	.fa{
+		color: #555555;
+	}
+	.text-danger{
+		color: red;
+	}
+	select, input{
+		color: #059607;
+		border-radius: 0px;
+	}
+	::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+	  color: #8f8f8f;
+	}
+	::-moz-placeholder { /* Firefox 19+ */
+	  color: #8f8f8f;
+	}
+	:-ms-input-placeholder { /* IE 10+ */
+	  color: #8f8f8f;
+	}
+	:-moz-placeholder { /* Firefox 18- */
+	  color: #8f8f8f;
+	}
+	button{
+		margin-right: 33px;
+		width: 20%;
+		height: 47px;
+		font-size: 23px;
+	}
+	
+}
+.progress-bar-info{
+	background: $cor-03;
+}
+#link-externo{
+	padding: 0px 20px;
+}
+// previe img cadastro
+
+
+.inputfile-1 + label{
+	background: $cor-02;
+}
+
+.box {
+	width: 95%;
+}
+
+#bar{
+	height: 20px;
+	.bar{
+		border-radius: 5px;
+	}
+}

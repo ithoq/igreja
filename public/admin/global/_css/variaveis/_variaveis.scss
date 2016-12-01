@@ -1,0 +1,52 @@
+/*---------FONTES FAMILY-----------*/
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
+
+/*---------DECLARANDO FONTES-----------*/
+
+$family-padrao            		: 'Montserrat', sans-serif;
+$family-secundaria                 	: " ";
+
+/*---------CORES-----------*/
+$cor-font              		:#000000; 		// PRETO
+$cor-01                   	:#000000; 		// PRETO
+$cor-02                   	:#000000; 		// PRETO
+$cor-03                   	:#000000; 		// PRETO
+$cor-04                   	:#000000;		// PRETO
+$cor-05                   	:#000000; 		// PRETO
+$cor-06                   	:#000000; 		// PRETO
+$cor-07                  	:#000000; 		// PRETO
+$cor-08                   	:#000000;		// PRETO
+
+$cor-99                   	:#ffffff;			// Branco
+$cor-100                   	:#000000;			// Preto
+
+
+/*---------SIZES-----------*/
+
+$size-h1                       : 3px;		// titulos post
+$size-h2                       : 1.8px;		// 
+$size-h3                       : 2px;		//
+$size-h4                       : 2px;		//
+$size-h5                       : 2px;		//
+$size-h6                       : 2px;		//
+$size-p	                       : 1.2px;		//
+
+/*---------MEDIA QUERY-----------*/
+
+//mobile
+$mobile : "(max-width: 740px)"; // base iphone 6plus em landscape
+
+// tablets
+$tablet : "(min-width: 741px) and (max-width: 1024px)"; // base ipad em landscape com maxima de 1023
+
+// tablets land
+$tablet-land : "(max-width: 1023px) and (max-width: 1025px)"; // base ipad em landscape com maxima de 1023
+
+
+
+/*orma de aplicação
+@media #{ $mobile, $tablet}{
+	// código
+}
+*/
+

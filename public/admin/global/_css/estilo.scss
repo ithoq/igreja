@@ -1,0 +1,40 @@
+// VARIAVEIS
+@import "variaveis/variaveis";
+
+//MIXINS & PLACEHOLDERS
+$cor-01  :#2b3643;
+$cor-02  :#32c5d2; //32c5d2
+$cor-03  :#3FABA4; //3FABA4
+
+// ESTRUTURA
+@import "estrutura/membros";
+@import "estrutura/geral";
+
+body{
+	overflow-x: hidden;
+}
+
+
+#membros-table{
+	.label-sm{
+		color: $cor-99;
+		border: none;
+		&:hover{
+		}
+	}
+}
+#membros-table_filter,.dataTables_length{
+		input,select{
+			width: 389px;
+			border: 1px solid #cccccc;
+			border-radius: 5px;
+			height: 30px;
+		}
+		select{
+			width: auto;
+		}
+	}
+
+.paginate_button {
+	//background: red;	
+}
