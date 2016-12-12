@@ -11,6 +11,7 @@
 {{-- ARQUIVOS CSS --}}
 @push('css')
 <link href="{{ asset('admin/assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('admin/assets/global/plugins/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 {{-- Titulo da pagina --}}
@@ -24,18 +25,46 @@
 {{-- MAIN --}}
 
 @section('main-content')
+
+    <input id="input-4" name="input4[]" type="file" multiple class="file-loading">
+    
+    
     <table class="table table-hover table-light" id="membros-table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
-                    <th>Sexo</th>
-                    <th>Cargo</th>
-                    <th>Status</th>
+                    <th>Descricao</th>
+                    <th>Created_at</th>
                     <th>Ação</th>
                 </tr>
             </thead>
         </table>   
+    
+    <div class="modal fade modal-update-arquivo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="">
+                <input id="file-update" name="file-update" type="file"  class="file-loading">
+               {{-- <input id="file-update" name="fileupdate" type="file" class="file" >--}}
+                <div class="input-group ">
+                    <div class="input-group-addon ">
+                        <i class="fa fa-user text-danger" aria-hidden="true"></i>
+                    </div>
+                    <input name="update-nome" type="text" class="form-control " value="" placeholder="Digite o nome do arquivo ...">
+                </div>
+                <div class="input-group ">
+                    <div class="input-group-addon ">
+                        <i class="fa fa-user text-danger" aria-hidden="true"></i>
+                    </div>
+                    <input name="update-desc" type="text" class="form-control " value="" placeholder="Digite a descrição do arquivo ...">
+                </div>
+                <input type="text" id="update-id" >
+
+            </form>
+        </div>
+      </div>
+    </div>
 @endsection
 
 
@@ -44,36 +73,31 @@
 {{-- ARQUIVOS JAVASCRIPTS --}}
 @push('scripts')
 <script src="{{ asset('admin/assets/global/plugins/datatables/datatables.min.js') }} " type="text/javascript"></script>
+<script src="{{ asset('admin/assets/global/plugins/datatables.net-buttons/js/dataTables.buttons.min.js') }} " type="text/javascript"></script>
+<script src="{{ asset('admin/assets/global/plugins/bootstrap-fileinput/js/fileinput.min.js') }} " type="text/javascript"></script>
+<script src="{{ asset('admin/assets/global/plugins/bootstrap-fileinput/js/locales/pt-BR.js') }} " type="text/javascript"></script>
 @endpush
 
 @push('scripts-page')
 
 <script>
+    
+    
     $(function() {
-        $.fn.dataTable.ext.errMode = 'throw';
      $('#membros-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{!! route('datatable_membros') !!}',
-                statusCode: {
-                    404: function() {
-                       // toastr["error"](" Houve um erro ao buscar os dados, Atualize a página (F5) ")
-                    }
-                },
+                url: '{!! route('datatable_arquivos') !!}',
                 error: function() {
                    toastr["error"](" Houve um erro ao buscar os dados, Atualize a página (F5) ")
-                   /* table.destroy();
-                    table;*/
-                    
                 }
             },
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'mem_nome', name: 'mem_nome' },
-                { data: 'mem_sexo', name: 'mem_sexo' },
-                { data: 'mem_cargo', name: 'mem_cargo' },
-                { data: 'mem_status', name: 'mem_status' },
+                { data: 'nome', name: 'nome' },
+                { data: 'descricao', name: 'descricao' },
+                { data: 'created_at', name: 'created_at' },
                 {data: 'acao', name: 'acao', orderable: false, searchable: false}
             ],
             "language": {
@@ -89,21 +113,63 @@
                   "zeroRecords": "Não existe nenhum resultado para essa busca",
                   "infoFiltered": "(Filto feito no total de  _MAX_  cadastros)"
             },
-            "createdRow": function ( row ) {
-            				
-                //console.log($('td', row).eq(5).text());
-                var valor = $('td', row).eq(4).text()
-                if ( valor  == "Ativo") {
-                    $('td', row).eq(4).find('span').addClass('label label-sm label-success');
-                }
-                if ( valor  == "Inativo") {
-                    $('td', row).eq(4).find('span').addClass('label label-sm label-warning');
-                }
-                if ( valor  == "Afastado") {
-                    $('td', row).eq(4).find('span').addClass('label label-sm label-danger');
-                }
-            },
+        dom: 'Bfrtip',
+         buttons: [
+                 'copy', 'excel', 'pdf'
+             ]
         });
+        
+        
+        var footerTemplate = '<div class="file-thumbnail-footer">\n' +
+        '   <div style="margin:5px 0">\n' +
+        '       <input class="kv-input kv-new form-control input-sm text-center {TAG_CSS_NEW}" value="{caption}" placeholder="Digite um titulo...">\n' +
+        '       <input class="kv-input kv-init form-control input-sm text-center {TAG_CSS_INIT}" value="{TAG_VALUE}" placeholder="Digite um titulo...">\n' +
+        '   </div>\n' +
+        '   {size}\n' +
+        '   {actions}\n' +
+        '</div>';
+        
+       
+        $("#input-4").fileinput({
+            language: "pt-BR",
+            uploadUrl: '{!! route('send_arquivos') !!}', // server upload action
+            uploadAsync: false,
+            showCaption: true,
+            maxFileCount: 10,
+           // browseOnZoneClick: true,
+            layoutTemplates: {footer: footerTemplate, size: '<samp><small>({sizeText})</small></samp>'},
+            previewThumbTags: {
+                '{TAG_VALUE}': '',        // no value
+                '{TAG_CSS_NEW}': '',      // new thumbnail input
+                '{TAG_CSS_INIT}': 'hide'  // hide the initial input
+            },
+            uploadExtraData: function() {  // callback example
+                var out = {}, key, i = 0;
+                $('.kv-input:visible').each(function() {
+                    $el = $(this);
+                    key = $el.hasClass('kv-new') ? 'nome_' + i : 'init_' + i;
+                    out[key] = $el.val();
+                    i++;
+                });
+                return out;
+            },
+            allowedFileExtensions: ["jpg", "gif", "png", "txt", "docx","pdf", "xlsx", "xlsx", "xls", "ppt", "mkv",
+                                    "rmvb ", "mov", "mpeg","avi", "ogg", "aac", "mp3", "mp4", "zip", "rar"], 
+            
+        });
+        
+        $('#input-4').on('filebatchuploadcomplete', function(event, files, extra) {
+            toastr["success"]('Upload concluído') 
+            $('#input-4').delay( 800 ).fileinput('clear');
+        });
+        
+        $("#file-update").fileinput({
+            language: "pt-BR",
+            showCaption: true,
+            showPreview: false,
+            showUpload: false,
+        });
+      
     });
 </script>
 @endpush

@@ -228,8 +228,23 @@ class MembrosController extends Controller{
 		
 	}
 	
-	
-	
-	
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,10 +6,7 @@ $(function () {
 	
 	
 	//global.avisos();
-	
-	
-	
-	
+
 });
 
 
@@ -144,4 +141,13 @@ global = {
 				});
 			});
 		},
+	
+	update_arquivo:function (id, desc, nome) {
+		$('#update-nome').val(nome);
+		$('#update-desc').val(desc);
+		$('#update-id').val(id);
+	}
+	
 }// fim global
+
+// '.$data->id.' , '.$data->descricao.' ,'.$data->nome.'

@@ -14,6 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         "admin/membros", // remover daqui para subir
 	    "cadastro/token", //manter
+	    "admin/arquivos/send", //manter
     ];
 	
 	/*

@@ -61,6 +61,9 @@ Route::get('/cadastro/externo/{token}', function ($token) {
 	
 		// DOCUMENTOS
 		Route::get('arquivos', 'DocumentosController@show_arquivos')->name('show_arquivos');
+		Route::post('arquivos/send', 'DocumentosController@send_arquivos')->name('send_arquivos');
+		Route::get('arquivos/datatables', 'DocumentosController@datatable_arquivos')->name('datatable_arquivos');
+		Route::get('arquivos/delete/{id}', 'DocumentosController@delete_arquivo')->name('delete_arquivo');
 	
 	});// END_ADMIN
 	

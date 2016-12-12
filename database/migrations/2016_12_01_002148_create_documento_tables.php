@@ -15,6 +15,12 @@ class CreateDocumentoTables extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->increments('id');
+	        $table->string('nome', 255);
+	        $table->longText('descricao')->nullable();;
+	        $table->string('arquivo', 255);
+	        $table->string('tipo', 255)->default('arquivo');
+	        $table->integer('user_id')->unsigned();
+	        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
